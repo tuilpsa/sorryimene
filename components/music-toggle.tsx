@@ -5,15 +5,27 @@ import { useEffect, useRef, useState } from "react"
 
 export function MusicToggle() {
   const [isPlaying, setIsPlaying] = useState(false)
+  const [hasInteracted, setHasInteracted] = useState(false)
   const audioRef = useRef<HTMLAudioElement | null>(null)
 
   useEffect(() => {
-    // Create audio element with a romantic ambient sound
-    audioRef.current = new Audio(
-      "https://assets.mixkit.co/music/preview/mixkit-serene-view-443.mp3"
-    )
+    audioRef.current = new Audio("/audio/love-song.mp3")
     audioRef.current.loop = true
-    audioRef.current.volume = 0.3
+    audioRef.current.volume = 0.5
+
+    // Try to autoplay
+    const playPromise = audioRef.current.play()
+    if (playPromise !== undefined) {
+      playPromise
+        .then(() => {
+          setIsPlaying(true)
+          setHasInteracted(true)
+        })
+        .catch(() => {
+          // Autoplay was prevented, wait for user interaction
+          setIsPlaying(false)
+        })
+    }
 
     return () => {
       if (audioRef.current) {
@@ -23,16 +35,37 @@ export function MusicToggle() {
     }
   }, [])
 
+  // Handle first interaction to start music if autoplay failed
+  useEffect(() => {
+    if (hasInteracted) return
+
+    const handleFirstInteraction = () => {
+      if (audioRef.current && !isPlaying) {
+        audioRef.current.play().then(() => {
+          setIsPlaying(true)
+          setHasInteracted(true)
+        }).catch(() => {})
+      }
+    }
+
+    document.addEventListener("click", handleFirstInteraction, { once: true })
+    document.addEventListener("touchstart", handleFirstInteraction, { once: true })
+
+    return () => {
+      document.removeEventListener("click", handleFirstInteraction)
+      document.removeEventListener("touchstart", handleFirstInteraction)
+    }
+  }, [hasInteracted, isPlaying])
+
   const toggleMusic = () => {
     if (audioRef.current) {
       if (isPlaying) {
         audioRef.current.pause()
       } else {
-        audioRef.current.play().catch(() => {
-          // Autoplay was prevented
-        })
+        audioRef.current.play().catch(() => {})
       }
       setIsPlaying(!isPlaying)
+      setHasInteracted(true)
     }
   }
 

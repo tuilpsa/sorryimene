@@ -13,10 +13,10 @@ export function ContinueButton({ onClick, isVisible }: ContinueButtonProps) {
   return (
     <button
       onClick={onClick}
-      className="group mt-8 px-8 py-4 rounded-full bg-gradient-to-r from-pink-600 via-purple-600 to-pink-600 text-white font-medium text-lg transition-all duration-300 hover:scale-105 box-glow box-glow-hover animate-fade-in flex items-center gap-3 mx-auto"
+      className="group mt-6 px-6 py-3 rounded-full bg-gradient-to-r from-pink-600 via-purple-600 to-pink-600 text-white font-medium text-base transition-all duration-300 hover:scale-105 box-glow box-glow-hover animate-fade-in flex items-center gap-2 mx-auto"
     >
-      <span>Continue...</span>
-      <Heart className="w-5 h-5 group-hover:animate-heartbeat text-pink-200" />
+      <span>Next message</span>
+      <Heart className="w-4 h-4 group-hover:animate-heartbeat text-pink-200" />
     </button>
   )
 }

@@ -53,16 +53,16 @@ export default function LovePage() {
       <MusicToggle />
 
       <div className="relative z-10 container mx-auto px-4 py-12 md:py-20">
-        <header className="text-center mb-12 md:mb-16 animate-fade-in-up">
-          <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-pink-400 via-purple-400 to-pink-400 animate-pulse-glow mb-4">
+        <header className="text-center mb-10 md:mb-14 animate-fade-in-up">
+          <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-pink-400 via-purple-400 to-pink-400 animate-pulse-glow mb-3">
             For You, Imene
           </h1>
-          <p className="text-lg md:text-xl text-pink-200/80 text-glow">
-            A message from my heart to yours
+          <p className="text-base md:text-lg text-pink-200/80">
+            Messages from Anes
           </p>
         </header>
 
-        <div className="space-y-8 max-w-3xl mx-auto">
+        <div className="space-y-6 max-w-2xl mx-auto">
           {messages.map((message, index) => (
             <MessageBlock
               key={index}
